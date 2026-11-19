@@ -102,6 +102,8 @@ if (gotLock) {
         const { default: sharp } = await import("sharp");
         const { Resvg } = await import("@resvg/resvg-js");
         const { Codex } = await import("./codex.mjs");
+        const { nihongoGuidance } = await import("./nihongo.mjs");
+        const languageGuidance = nihongoGuidance();
         const png = new Resvg(
           '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64" fill="green"/></svg>',
         )
@@ -116,6 +118,7 @@ if (gotLock) {
             "SMOKE PASS",
             JSON.stringify({
               imageBytes: image.length,
+              nihongoCharacters: languageGuidance.length,
               account: account.signedIn,
               authOrigin: new URL(login.url).origin,
             }),

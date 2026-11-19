@@ -14,6 +14,7 @@ const files = [
   "README.md",
   "RELEASE.md",
   ".gitignore",
+  ".gitattributes",
   ".github",
   "src",
   "public",

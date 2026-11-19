@@ -94,6 +94,7 @@ test("downloadable source archive explicitly includes the nihongo bundle", () =>
     "utf8",
   );
   assert(script.includes('"resources/nihongo"'));
+  assert(script.includes('".gitattributes"'));
   const configuration = JSON.parse(
     readFileSync(new URL("../package.json", import.meta.url), "utf8"),
   );
