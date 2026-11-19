@@ -1,6 +1,6 @@
 # Third-party software
 
-Paper Desk is an independent, local, open-source application. It is not an OpenAI product. OpenAI, ChatGPT, and Codex are trademarks of their respective owners.
+朝の論文帖 is an independent, local, open-source application. It is not an OpenAI product. OpenAI, ChatGPT, and Codex are trademarks of their respective owners.
 
 - Codex CLI, `@openai/codex`, OpenAI: Apache-2.0. https://github.com/openai/codex
   The upstream license and notice for rust-v0.170.0 are retained in
@@ -17,7 +17,7 @@ Paper Desk is an independent, local, open-source application. It is not an OpenA
 
 Keep dependency license files and Electron's LICENSE/NOTICE files in the application distribution. The bundled Codex native vendor directory contains additional runtime licenses. It must remain intact. `resources/licenses/` holds additional copied upstream licenses.
 
-Paper figures remain subject to their authors' licenses. No research papers or figures are included in the release. Downloaded original figures retain their source link and available license attribution. The MIT license for Paper Desk does not relicense them.
+Paper figures remain subject to their authors' licenses. No research papers or figures are included in the release. Downloaded original figures retain their source link and available license attribution. The MIT license for 朝の論文帖 does not relicense them.
 
 Reference for the original reading-workflow idea: https://note.com/john_doenote/n/nb514e544ce25
 

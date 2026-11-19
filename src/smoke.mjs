@@ -46,7 +46,8 @@ export async function smokeTest() {
           try {
             const latin = await document.fonts.load('500 16px "Noto Sans Variable"', "Paper Desk");
             const japanese = await document.fonts.load('500 16px "Noto Sans JP Variable"', "論文");
-            resolve(latin.length > 0 && japanese.length > 0 && Boolean(window.MathJax?.startup));
+            resolve(latin.length > 0 && japanese.length > 0 &&
+              document.title === "朝の論文帖" && Boolean(window.MathJax?.startup));
           } catch (error) {
             reject(error);
           } finally {

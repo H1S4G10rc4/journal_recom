@@ -59,7 +59,7 @@ jobs:
       - run: npm run checksums
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: Paper-Desk-${{ matrix.name }}
+          name: Asa-Papers-${{ matrix.name }}
           retention-days: 14
           path: |
             release/*.AppImage
@@ -91,9 +91,9 @@ jobs:
         run: |
           gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --dir artifacts
           mkdir release
-          for directory in artifacts/Paper-Desk-*; do
+          for directory in artifacts/Asa-Papers-*; do
             (cd "$directory" && sha256sum --check SHA256SUMS.txt)
             find "$directory" -type f ! -name SHA256SUMS.txt -exec cp {} release/ \;
           done
           npm run checksums
-          gh release create "$GITHUB_REF_NAME" release/* --repo "$GITHUB_REPOSITORY" --verify-tag --title "Paper Desk $GITHUB_REF_NAME" --notes-file CHANGELOG.md
+          gh release create "$GITHUB_REF_NAME" release/* --repo "$GITHUB_REPOSITORY" --verify-tag --title "朝の論文帖 $GITHUB_REF_NAME" --notes-file CHANGELOG.md

@@ -1,4 +1,4 @@
-# Paper Desk
+# 朝の論文帖
 
 研究内容を自然な言葉で伝えると、2つのテーマから毎日1本ずつ論文を選び、日本語の紹介文と原図を表示する個人用デスクトップアプリです。既読とメモを保存し、次の推薦にも反映します。
 
@@ -20,11 +20,11 @@ Windows・macOSの配布物には発行元証明書による署名がないた�
 
 ### Linux
 
-`tar.gz` を展開し、フォルダー内の `paper-desk-desktop` を起動します。フォルダー内のファイルは移動せず、まとめて保管してください。AppImageの実行にはFUSE 2が必要です。FUSE 2を利用できない環境では `tar.gz` 版を使用してください。
+`tar.gz` を展開し、フォルダー内の `asa-papers` を起動します。フォルダー内のファイルは移動せず、まとめて保管してください。AppImageの実行にはFUSE 2が必要です。FUSE 2を利用できない環境では `tar.gz` 版を使用してください。
 
 ### Windows・macOS
 
-Windowsはファイル名の末尾が `setup.exe` のものを実行してインストールするか、`portable.exe` を直接起動します。macOSは `dmg` を開くか `zip` を展開し、Paper Deskを「アプリケーション」フォルダーへ移動します。
+Windowsはファイル名の末尾が `setup.exe` のものを実行してインストールするか、`portable.exe` を直接起動します。macOSは `dmg` を開くか `zip` を展開し、`asa-papers.app` を「アプリケーション」フォルダーへ移動します。
 
 ## 初回設定
 
@@ -75,4 +75,4 @@ ChatGPTのログイン情報は、同梱した公式Codex CLIがアプリ専用�
 
 アプリ本体は [MIT License](LICENSE) です。同梱するソフトウェアとスキル文書、論文の原図には、それぞれの権利者の条件が適用されます。[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) を参照してください。
 
-Paper Deskは個人開発の独立したアプリであり、OpenAIの公式製品ではありません。読書の流れは[参考記事](https://note.com/john_doenote/n/nb514e544ce25)をもとにしています。
+朝の論文帖は個人開発の独立したアプリであり、OpenAIの公式製品ではありません。読書の流れは[参考記事](https://note.com/john_doenote/n/nb514e544ce25)をもとにしています。

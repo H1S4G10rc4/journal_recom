@@ -5,7 +5,7 @@ import { finished } from "node:stream/promises";
 const root = path.resolve(import.meta.dirname, "..");
 const { version } = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
 const output = path.resolve(
-  process.argv[2] || path.join(root, "release", `Paper-Desk-${version}-source.zip`),
+  process.argv[2] || path.join(root, "release", `Asa-Papers-${version}-source.zip`),
 );
 const files = [
   "package.json",
@@ -36,7 +36,7 @@ function add(relative) {
   const absolute = path.join(root, relative);
   if (statSync(absolute).isDirectory()) {
     for (const name of readdirSync(absolute).sort()) add(relative + "/" + name);
-  } else zip.addFile(absolute, "Paper-Desk/" + relative);
+  } else zip.addFile(absolute, "Asa-Papers/" + relative);
 }
 for (const relative of files) add(relative);
 zip.end();

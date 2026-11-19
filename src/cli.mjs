@@ -6,7 +6,7 @@ const state =
   path.join(os.homedir(), ".local/share/paper-desk-desktop");
 const desk = await createDesk({ state, port: Number(process.env.PORT) || 0, browserAccess: true });
 console.log(
-  "Paper Desk browser URL:\n" + desk.origin,
+  "朝の論文帖 browser URL:\n" + desk.origin,
 );
 for (const signal of ["SIGINT", "SIGTERM"])
   process.on(signal, async () => {
