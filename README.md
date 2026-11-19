@@ -42,7 +42,7 @@ npm start
 npm run dist -- --publish never
 ```
 
-開発用ブラウザ画面は `npm run prepare:resources && npm run preview` で起動します。表示されるURLはそのローカルセッション専用です。
+開発用ブラウザ画面は `npm run prepare:resources && npm run preview` で起動します。表示されるURLを直接開いて使用できます。初回にパスワードを設定し、以後はパスワードでロックを解除します。ポートは `PORT`、保存先は `PAPER_DESK_STATE` で指定できます。
 
 - Linux: tar.gzを展開し、`paper-desk-desktop` を起動します（追加のNode.js/Pythonは不要）。FUSE 2がある環境ではAppImageも利用できます。
 - Windows: セットアップexe / ポータブルexe

@@ -17,9 +17,9 @@ const fake = {
   async logout() {},
   stop() {},
 };
-async function fixture(t) {
+async function fixture(t, options = {}) {
   const dir = mkdtempSync(path.join(os.tmpdir(), "paper-desk-http-test-")),
-    desk = await createDesk({ state: dir, codex: fake });
+    desk = await createDesk({ state: dir, codex: fake, ...options });
   t.after(async () => {
     await desk.close();
     rmSync(dir, { recursive: true, force: true });
@@ -47,6 +47,27 @@ async function fixture(t) {
   };
   return { desk, call, cookies };
 }
+test("browser preview opens directly and keeps password, origin, and host checks", async (t) => {
+  const { desk, call } = await fixture(t, { browserAccess: true });
+  assert.equal((await call("/")).status, 200);
+  const state = await (await call("/api/state")).json();
+  assert.equal(state.initialized, false);
+  assert.equal(state.unlocked, false);
+  assert.equal(state.profile, null);
+  assert.equal((await call("/api/papers")).status, 401);
+  assert.equal((await call("/api/state", { headers: { Origin: "https://evil.example" } })).status, 403);
+  assert.equal((await call("/api/state", { headers: { "Sec-Fetch-Site": "cross-site" } })).status, 403);
+  assert.equal((await call("/api/setup/password", { method: "POST", body: { password: "test-password-123" } })).status, 200);
+  assert.equal((await call("/api/papers")).status, 200);
+  const stranger = await fetch(desk.origin + "/api/papers");
+  assert.equal(stranger.status, 401);
+  assert.equal((await call("/api/lock", { method: "POST" })).status, 200);
+  assert.equal((await call("/api/papers")).status, 401);
+  assert.equal((await call("/api/unlock", { method: "POST", body: { password: "wrong" } })).status, 400);
+  assert.equal((await call("/api/unlock", { method: "POST", body: { password: "test-password-123" } })).status, 200);
+  assert.equal((await call("/api/papers")).status, 200);
+});
+
 test("localhost entry redirects to the canonical origin without relaxing API host checks", async (t) => {
   const { desk, call } = await fixture(t);
   const port = new URL(desk.origin).port;

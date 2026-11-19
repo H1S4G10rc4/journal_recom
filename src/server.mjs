@@ -42,6 +42,7 @@ export async function createDesk({
   mathjaxDir,
   onOpenExternal,
   initialLaunchTokens = [],
+  browserAccess = false,
 } = {}) {
   const vault = new Vault(state),
     codex = providedCodex || new Codex(state),
@@ -90,7 +91,7 @@ export async function createDesk({
     }
     const json = (d, status = 200, extra = {}) =>
       reply(status, d, undefined, extra);
-    const client = clients.has(cookie(req, "pd_desktop_client"));
+    const client = browserAccess || clients.has(cookie(req, "pd_desktop_client"));
     const authenticated =
       client &&
       vault.unlocked &&
