@@ -1,6 +1,6 @@
 {
   "name": "paper-desk-desktop",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Your research, two papers every morning. A local-first research reading companion.",
   "license": "MIT",
   "private": true,
@@ -45,8 +45,9 @@
   },
   "build": {
     "appId": "org.paperdesk.desktop",
-    "productName": "Paper Desk",
-    "artifactName": "Paper-Desk-${version}-${os}-${arch}.${ext}",
+    "productName": "PaperCue",
+    "executableName": "PaperCue",
+    "artifactName": "PaperCue-${version}-${os}-${arch}.${ext}",
     "directories": {
       "output": "release",
       "buildResources": "resources"
@@ -81,6 +82,7 @@
       "THIRD_PARTY_NOTICES.md"
     ],
     "linux": {
+      "executableName": "papercue",
       "target": [
         "AppImage",
         "tar.gz"
@@ -96,13 +98,13 @@
       "icon": "resources/icon.png"
     },
     "nsis": {
-      "artifactName": "Paper-Desk-${version}-windows-${arch}-setup.${ext}",
+      "artifactName": "PaperCue-${version}-windows-${arch}-setup.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false
     },
     "portable": {
-      "artifactName": "Paper-Desk-${version}-windows-${arch}-portable.${ext}"
+      "artifactName": "PaperCue-${version}-windows-${arch}-portable.${ext}"
     },
     "mac": {
       "target": [

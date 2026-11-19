@@ -11,9 +11,9 @@ test("release checksums cover downloadable files and exclude directories and bui
   const dir = mkdtempSync(path.join(os.tmpdir(), "paper-desk-release-"));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
   const downloads = {
-    "Paper-Desk-source.zip": Buffer.from("source archive fixture"),
-    "Paper-Desk-windows-x64-setup.exe": Buffer.from([0, 1, 2, 255]),
-    "Paper-Desk-linux-x64.tar.gz": Buffer.from("linux fixture"),
+    "PaperCue-source.zip": Buffer.from("source archive fixture"),
+    "PaperCue-windows-x64-setup.exe": Buffer.from([0, 1, 2, 255]),
+    "PaperCue-linux-x64.tar.gz": Buffer.from("linux fixture"),
   };
   for (const [name, bytes] of Object.entries(downloads)) writeFileSync(path.join(dir, name), bytes);
   mkdirSync(path.join(dir, "unpacked.zip"));

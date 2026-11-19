@@ -44,7 +44,7 @@ let state,
   memoQueues = new Map(),
   memoTimers = new Map(),
   toastTimer;
-const name = '<span class="wordmark">Paper Desk<span>.</span></span>';
+const name = '<span class="wordmark">PaperCue</span>';
 async function api(path, options = {}) {
   const r = await fetch(path, {
     ...options,

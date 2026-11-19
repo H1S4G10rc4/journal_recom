@@ -130,7 +130,7 @@ export class Codex {
           id: m.id,
           error: {
             code: -32601,
-            message: "Paper Desk does not grant agent actions",
+            message: "PaperCue does not grant agent actions",
           },
         });
       } else if (m.method === "account/login/completed") {
@@ -163,8 +163,8 @@ export class Codex {
       {
         clientInfo: {
           name: "paper_desk",
-          title: "Paper Desk",
-          version: "0.1.0",
+          title: "PaperCue",
+          version: "0.1.2",
         },
         capabilities: { experimentalApi: false },
       },
