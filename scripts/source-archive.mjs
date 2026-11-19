@@ -21,6 +21,7 @@ const files = [
   "scripts",
   "resources/research-schema.json",
   "resources/icon.svg",
+  "resources/nihongo",
 ];
 const zip = new ZipFile();
 const stream = createWriteStream(output);

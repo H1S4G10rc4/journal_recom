@@ -1,0 +1,27 @@
+{
+  "name": "nihongo",
+  "version": "2.3.1",
+  "source": "host skill: nihongo",
+  "files": [
+    {
+      "path": "runtime.md",
+      "sha256": "2d3563b66d59a7b5e748d423fd03ed64f0720a06302393bf212a02ee04307631"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "2fee575987a3d033a90a4a167d90d85f5eefcb08ca3805b507df1b4d4e1f58c8"
+    },
+    {
+      "path": "references/technical-writing.md",
+      "sha256": "8399b4e5fbd249ed9d2bedd7590bac75cc77ec46e88c67618d8dd7ff9226ae8c"
+    },
+    {
+      "path": "references/review.md",
+      "sha256": "5523aa206f541feb3dbd3599bdf1f7e9aa264f990e8e363914aa1d4177ad7dc8"
+    },
+    {
+      "path": "references/register.md",
+      "sha256": "3dad1a5f005a4efdf82dfa16f3936ea843b027556aa6bdd95d2088795ad4e6c2"
+    }
+  ]
+}

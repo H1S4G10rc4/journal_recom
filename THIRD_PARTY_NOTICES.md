@@ -13,3 +13,5 @@ Keep dependency license files and Electron's LICENSE/NOTICE files in the applica
 Paper figures remain subject to their authors' licenses. No research papers or figures are included in the release. Downloaded original figures retain their source link and available license attribution. The MIT license for Paper Desk does not relicense them.
 
 Reference for the original reading-workflow idea: https://note.com/john_doenote/n/nb514e544ce25
+
+The nihongo 2.3.1 language skill and selected references are bundled from the host skill supplied for this project. Their original text is retained; `resources/nihongo/manifest.json` records the version and SHA-256 hashes. Personal writing profiles and account settings are not included.

@@ -58,3 +58,7 @@ npm run dist -- --publish never
 - https://www.electronjs.org/docs/latest/tutorial/security
 
 MIT License。第三者ライブラリ・取得する原図のライセンスはTHIRD_PARTY_NOTICES.mdを参照してください。
+
+## 日本語の要約生成
+
+要約・紹介文の生成と推敲には同梱のnihongo 2.3.1を使用する。スキル本体と技術文書・レビュー・書き言葉の参照資料を各生成リクエストに含めるため、利用環境にnihongoを別途インストールする必要はない。推敲後は原文と照合し、数値、専門用語、TeX数式、引用、因果関係、不確実性を維持するよう指示する。既存の紹介文、既読、メモは書き換えない。
