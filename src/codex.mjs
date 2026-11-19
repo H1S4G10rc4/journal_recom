@@ -7,9 +7,9 @@ const require = createRequire(import.meta.url);
 // exec ignores config.toml, so pass the login credential store to both processes.
 const AUTH_STORE = 'cli_auth_credentials_store="auto"';
 function researchFailure(details) {
-  if (/401|unauthorized|missing bearer|not authenticated|authentication required/i.test(details))
+  if (/\b401\b|unauthorized|missing bearer|not authenticated|authentication required/i.test(details))
     return "ChatGPTの認証情報を読み込めませんでした。設定からChatGPTに接続し直して、もう一度更新してください。";
-  if (/usage.limit|rate.limit|quota|429/i.test(details))
+  if (/usage.limit|rate.limit|quota|\b429\b/i.test(details))
     return "ChatGPTの利用上限に達しました。時間をおいて再実行してください。";
   return "調査処理が完了しませんでした。ChatGPTの接続とネットワークを確認してください。";
 }

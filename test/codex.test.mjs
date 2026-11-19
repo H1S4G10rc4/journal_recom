@@ -91,6 +91,7 @@ test("login and research use the same credential store even when exec ignores us
 for (const [message, expected] of [
   ["401 Unauthorized: Missing bearer authentication PRIVATE_SECRET", /認証情報を読み込めませんでした/],
   ["usage_limit_reached PRIVATE_SECRET", /利用上限に達しました/],
+  ["2026-11-19T06:06:34.401429Z unexpected disconnect PRIVATE_SECRET", /調査処理が完了しませんでした/],
 ]) {
   test("structured failure is actionable without exposing diagnostics: " + expected.source, async (t) => {
     const dir = mkdtempSync(path.join(os.tmpdir(), "paper-desk-error-test-"));
