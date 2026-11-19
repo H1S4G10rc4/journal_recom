@@ -39,7 +39,7 @@ function autostart() {
         const quoted = '"' + executable.replace(/[\\"`$]/g, "\\$&") + '"';
         writeFileSync(
           path.join(dir, "paper-desk.desktop"),
-          "[Desktop Entry]\nType=Application\nName=朝の論文帖\nExec=" +
+          "[Desktop Entry]\nType=Application\nName=Paper Desk\nExec=" +
             quoted +
             " --hidden\nX-GNOME-Autostart-enabled=true\n",
           { mode: 0o600 },
@@ -64,7 +64,7 @@ function show() {
     height: 880,
     minWidth: 780,
     minHeight: 640,
-    title: "朝の論文帖",
+    title: "Paper Desk",
     backgroundColor: "#f7f8f4",
     icon: path.join(ROOT, "resources/icon.png"),
     webPreferences: {
@@ -120,17 +120,17 @@ if (gotLock) {
       );
       try {
         tray = new Tray(icon);
-        tray.setToolTip("朝の論文帖");
+        tray.setToolTip("Paper Desk — 毎朝の研究論文");
         tray.setContextMenu(
           Menu.buildFromTemplate([
-            { label: "朝の論文帖を開く", click: show },
+            { label: "Paper Deskを開く", click: show },
             {
               label: "今日の推薦を更新",
               click: () => {
                 if (desk.vault.unlocked && desk.vault.data.profile)
                   desk.research
                     .generate({ manual: true })
-                    .catch((e) => dialog.showErrorBox("朝の論文帖", e.message));
+                    .catch((e) => dialog.showErrorBox("Paper Desk", e.message));
                 else show();
               },
             },
@@ -140,7 +140,7 @@ if (gotLock) {
         );
         tray.on("click", show);
       } catch {}
-      console.log("朝の論文帖 ready on loopback.");
+      console.log("Paper Desk ready on loopback.");
       powerMonitor.on("resume", () => desk.tick());
       if (!process.argv.includes("--hidden") || !desk.vault.initialized) show();
       else if (!desk.vault.unlocked) show();
@@ -150,7 +150,7 @@ if (gotLock) {
         app.exit(1);
         return;
       }
-      dialog.showErrorBox("朝の論文帖を起動できませんでした", e.message);
+      dialog.showErrorBox("Paper Deskを起動できませんでした", e.message);
       app.quit();
     }
   });

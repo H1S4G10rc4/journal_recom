@@ -130,7 +130,7 @@ export class Codex {
           id: m.id,
           error: {
             code: -32601,
-            message: "The application does not grant agent actions",
+            message: "Paper Desk does not grant agent actions",
           },
         });
       } else if (m.method === "account/login/completed") {
@@ -163,8 +163,8 @@ export class Codex {
       {
         clientInfo: {
           name: "paper_desk",
-          title: "朝の論文帖",
-          version: "0.1.1",
+          title: "Paper Desk",
+          version: "0.1.0",
         },
         capabilities: { experimentalApi: false },
       },

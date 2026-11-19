@@ -3,4 +3,4 @@ const { version } = JSON.parse(readFileSync(new URL("../package.json", import.me
 const ref = process.env.GITHUB_REF || "";
 if (ref.startsWith("refs/tags/") && ref !== "refs/tags/v" + version)
   throw Error("The release tag must match package.json: v" + version);
-console.log("朝の論文帖 " + version);
+console.log("Paper Desk " + version);

@@ -1,6 +1,6 @@
 {
   "name": "paper-desk-desktop",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Your research, two papers every morning. A local-first research reading companion.",
   "license": "MIT",
   "private": true,
@@ -45,9 +45,8 @@
   },
   "build": {
     "appId": "org.paperdesk.desktop",
-    "productName": "朝の論文帖",
-    "executableName": "asa-papers",
-    "artifactName": "Asa-Papers-${version}-${os}-${arch}.${ext}",
+    "productName": "Paper Desk",
+    "artifactName": "Paper-Desk-${version}-${os}-${arch}.${ext}",
     "directories": {
       "output": "release",
       "buildResources": "resources"
@@ -97,13 +96,13 @@
       "icon": "resources/icon.png"
     },
     "nsis": {
-      "artifactName": "Asa-Papers-${version}-windows-${arch}-setup.${ext}",
+      "artifactName": "Paper-Desk-${version}-windows-${arch}-setup.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false
     },
     "portable": {
-      "artifactName": "Asa-Papers-${version}-windows-${arch}-portable.${ext}"
+      "artifactName": "Paper-Desk-${version}-windows-${arch}-portable.${ext}"
     },
     "mac": {
       "target": [

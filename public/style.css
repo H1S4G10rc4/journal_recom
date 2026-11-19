@@ -54,6 +54,9 @@ a:focus-visible {
   letter-spacing: -1px;
   white-space: nowrap;
 }
+.wordmark > span {
+  color: #9ab08b;
+}
 .eyebrow,
 .step-number {
   font-size: 10px;
