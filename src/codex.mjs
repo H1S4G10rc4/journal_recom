@@ -4,6 +4,15 @@ import { createRequire } from "node:module";
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 const require = createRequire(import.meta.url);
+// exec ignores config.toml, so pass the login credential store to both processes.
+const AUTH_STORE = 'cli_auth_credentials_store="auto"';
+function researchFailure(details) {
+  if (/401|unauthorized|missing bearer|not authenticated|authentication required/i.test(details))
+    return "ChatGPTの認証情報を読み込めませんでした。設定からChatGPTに接続し直して、もう一度更新してください。";
+  if (/usage.limit|rate.limit|quota|429/i.test(details))
+    return "ChatGPTの利用上限に達しました。時間をおいて再実行してください。";
+  return "調査処理が完了しませんでした。ChatGPTの接続とネットワークを確認してください。";
+}
 export function findCodex() {
   if (process.env.PAPER_DESK_CODEX) return process.env.PAPER_DESK_CODEX;
   const target = {
@@ -92,7 +101,7 @@ export class Codex {
   async start() {
     const child = this.spawn(
       this.binary,
-      ["app-server", "--listen", "stdio://"],
+      ["-c", AUTH_STORE, "app-server", "--listen", "stdio://"],
       {
         env: this.env(),
         stdio: ["pipe", "pipe", "pipe"],
@@ -239,6 +248,8 @@ export class Codex {
       "never",
       "exec",
       "--ignore-user-config",
+      "-c",
+      AUTH_STORE,
       "--skip-git-repo-check",
       "--ephemeral",
       "--sandbox",
@@ -264,7 +275,8 @@ export class Codex {
       });
       this.activeResearch = child;
       let diagnostics = "",
-        finalMessage = "";
+        finalMessage = "",
+        failureMessage = "";
       const timer = setTimeout(() => {
         child.kill();
         reject(
@@ -281,6 +293,8 @@ export class Codex {
             event.item?.type === "agent_message"
           )
             finalMessage = String(event.item.text || "").slice(0, 300000);
+          if (event.type === "error" || event.type === "turn.failed")
+            failureMessage = String(event.error?.message || event.message || "").slice(-2000);
         } catch {}
       });
       child.stderr.on("data", (x) => {
@@ -296,11 +310,7 @@ export class Codex {
         this.activeResearch = null;
         try {
           if (code !== 0)
-            throw Error(
-              /limit|quota|usage/i.test(diagnostics)
-                ? "ChatGPTの利用上限に達しました。時間をおいて再実行してください。"
-                : "調査処理が完了しませんでした。ChatGPTの接続とネットワークを確認してください。",
-            );
+            throw Error(researchFailure(diagnostics + "\n" + failureMessage));
           resolve(JSON.parse(finalMessage));
         } catch (e) {
           reject(e);
