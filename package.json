@@ -1,0 +1,93 @@
+{
+  "name": "paper-desk-desktop",
+  "version": "0.1.0",
+  "description": "Your research, two papers every morning. A local-first research reading companion.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "src/main.mjs",
+  "author": {
+    "name": "Paper Desk contributors"
+  },
+  "scripts": {
+    "start": "electron .",
+    "preview": "node src/cli.mjs",
+    "test": "node --test test/*.test.mjs",
+    "prepare:resources": "node scripts/prepare-resources.mjs",
+    "pack": "npm run prepare:resources && electron-builder --dir",
+    "dist": "npm run prepare:resources && electron-builder",
+    "source": "node scripts/source-archive.mjs"
+  },
+  "dependencies": {
+    "@openai/codex": "0.170.0",
+    "@resvg/resvg-js": "2.6.2",
+    "mathjax": "3.2.2",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "electron": "45.3.4",
+    "electron-builder": "26.18.0",
+    "yazl": "^3.3.1"
+  },
+  "build": {
+    "appId": "org.paperdesk.desktop",
+    "productName": "Paper Desk",
+    "artifactName": "Paper-Desk-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "release",
+      "buildResources": "resources"
+    },
+    "files": [
+      "src/**/*",
+      "public/**/*",
+      "resources/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "!resources/mathjax/**/*"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@openai/**/*",
+      "node_modules/@resvg/**/*",
+      "node_modules/@img/**/*",
+      "node_modules/sharp/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/mathjax",
+        "to": "mathjax"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "category": "Education",
+      "icon": "resources/icon.png"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "resources/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.education",
+      "icon": "resources/icon.png",
+      "hardenedRuntime": true
+    },
+    "publish": null
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "type": "object",
+  "properties": {
+    "papers": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "authors": {
+            "type": "string"
+          },
+          "venue": {
+            "type": "string"
+          },
+          "journal": {
+            "type": "string"
+          },
+          "doi": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "arxiv_id": {
+            "type": "string"
+          },
+          "v1_date": {
+            "type": "string"
+          },
+          "revised_date": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "background": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "results": {
+            "type": "string"
+          },
+          "relation": {
+            "type": "string"
+          },
+          "recommend": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "full_text_url": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B"
+            ]
+          },
+          "figures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "image_url": {
+                  "type": "string"
+                },
+                "source_url": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "license": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "image_url",
+                "source_url",
+                "label",
+                "caption",
+                "license"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "title",
+          "authors",
+          "venue",
+          "journal",
+          "doi",
+          "url",
+          "arxiv_id",
+          "v1_date",
+          "revised_date",
+          "field",
+          "kind",
+          "summary",
+          "background",
+          "method",
+          "results",
+          "relation",
+          "recommend",
+          "note",
+          "full_text_url",
+          "theme",
+          "figures"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "report": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "papers",
+    "report"
+  ],
+  "additionalProperties": false
+}

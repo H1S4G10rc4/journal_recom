@@ -1,0 +1,23 @@
+node_modules/
+resources/mathjax/
+resources/licenses/
+*.log
+*.enc
+.env*
+!.env.example
+settings.json
+auth.json
+research/
+figures/
+artifacts/
+release/
+
+# Generated assets and local runtime files
+resources/icon.png
+resources/tray.png
+__pycache__/
+*.pyc
+*.sqlite3*
+*.zip
+*.AppImage
+*.tar.gz
