@@ -14,7 +14,7 @@ const manifest = JSON.parse(
   readFileSync(path.join(bundle, "manifest.json"), "utf8"),
 );
 
-test("generation includes the real nihongo skill and selected references, with unchanged reader data", () => {
+test("generation includes the bundled nihongo-based policy, with unchanged reader data", () => {
   const profile = {
     themes: [
       { id: "A", focus: "memory" },
@@ -37,7 +37,7 @@ test("generation includes the real nihongo skill and selected references, with u
   const before = structuredClone({ profile, history });
   const prompt = policyFor(profile, history, "2026-11-19");
   assert.equal(manifest.version, "2.3.1");
-  assert(prompt.startsWith(nihongoGuidance()));
+  assert(prompt.startsWith(nihongoGuidance(null).split("\nApply /nihongo")[0]));
   for (const entry of manifest.files)
     assert(
       prompt.includes(readFileSync(path.join(bundle, entry.path), "utf8")),
@@ -83,7 +83,7 @@ test("actual research path sends nihongo to the model even with shell tools disa
   await research.job;
   assert(captured.includes("/nihongo"));
   assert(
-    captured.includes(readFileSync(path.join(bundle, "SKILL.md"), "utf8")),
+    captured.includes(readFileSync(path.join(bundle, "runtime.md"), "utf8")),
   );
   assert.equal(vault.data.runs.at(-1).status, "partial");
 });

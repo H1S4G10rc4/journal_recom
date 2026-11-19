@@ -59,7 +59,29 @@ export async function smokeTest() {
       })
     `);
     assert(rendered, "The bundled Noto fonts and MathJax must load");
-    console.log("SMOKE PASS: setup screen, Noto fonts, MathJax, Codex, image conversion and nihongo");
+    const notices = await window.webContents.executeJavaScript(`
+      new Promise((resolve, reject) => {
+        const body = document.querySelector("#oss-text");
+        const timeout = setTimeout(() => {
+          observer.disconnect();
+          reject(new Error("The license notices did not render"));
+        }, 8000);
+        const observer = new MutationObserver(() => {
+          if (!body.textContent.includes("# オープンソースライセンスと出典")) return;
+          const select = document.querySelector("#oss-select");
+          const names = Array.from(select.options, (option) => option.textContent);
+          observer.disconnect();
+          clearTimeout(timeout);
+          resolve(document.querySelector("#oss-dialog").open && names.includes("Codex-NOTICE") &&
+            names.includes("libvips-LICENSE") && names.includes("LGPL-3.0.txt") &&
+            names.includes("GPL-3.0.txt") && names.includes("noto-sans-jp-OFL.txt"));
+        });
+        observer.observe(body, { childList: true, subtree: true });
+        document.querySelector("#open-oss").click();
+      })
+    `);
+    assert(notices, "The app must display the bundled license texts");
+    console.log("SMOKE PASS: setup screen, fonts, licenses, MathJax, Codex, image conversion and nihongo");
   } finally {
     // The smoke window must not trigger the normal last-window quit handler.
     await desk?.close();

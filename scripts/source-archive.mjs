@@ -32,7 +32,7 @@ const zip = new ZipFile();
 const stream = createWriteStream(output);
 zip.outputStream.pipe(stream);
 function add(relative) {
-  if (relative === "public/fonts") return; // Rebuilt from pinned dependencies.
+  if (relative === "public/fonts" || relative === "public/oss") return;
   const absolute = path.join(root, relative);
   if (statSync(absolute).isDirectory()) {
     for (const name of readdirSync(absolute).sort()) add(relative + "/" + name);

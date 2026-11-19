@@ -9,6 +9,31 @@
   --line: #dfe5da;
   --bg: #f7f8f4;
 }
+.oss-footer {
+  text-align: center;
+  padding: 8px 16px 16px;
+}
+#oss-dialog {
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  color: var(--ink);
+  background: white;
+}
+#oss-dialog::backdrop { background: rgb(36 62 52 / 45%); }
+#oss-dialog h2 { margin-top: 0; }
+#oss-dialog a { text-decoration: underline; }
+#oss-select { max-width: 100%; font: inherit; }
+#oss-text {
+  max-height: 42vh;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 12px;
+  background: var(--bg);
+}
 * {
   box-sizing: border-box;
 }

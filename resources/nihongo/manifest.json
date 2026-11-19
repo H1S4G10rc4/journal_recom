@@ -1,12 +1,14 @@
 {
   "name": "nihongo",
   "version": "2.3.1",
-  "source": "host skill: nihongo",
+  "source": "PaperCue summary policy with optional local nihongo references",
   "files": [
     {
       "path": "runtime.md",
-      "sha256": "2d3563b66d59a7b5e748d423fd03ed64f0720a06302393bf212a02ee04307631"
-    },
+      "sha256": "f8299922e489836e36404b616759346b6b9c31f5600b8f23cbb3d5673fca3070"
+    }
+  ],
+  "localFiles": [
     {
       "path": "SKILL.md",
       "sha256": "2fee575987a3d033a90a4a167d90d85f5eefcb08ca3805b507df1b4d4e1f58c8"

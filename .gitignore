@@ -16,6 +16,7 @@ release/
 resources/icon.png
 resources/tray.png
 public/fonts/
+public/oss/
 __pycache__/
 *.pyc
 *.sqlite3*

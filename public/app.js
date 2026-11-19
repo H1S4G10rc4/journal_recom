@@ -520,6 +520,23 @@ async function refresh() {
     await updateStatus();
   }
 }
+$("#open-oss").onclick = async () => {
+  $("#oss-dialog").showModal();
+  const select = $("#oss-select");
+  const text = $("#oss-text");
+  select.replaceChildren();
+  text.textContent = "ライセンスを読み込んでいます。";
+  try {
+    const response = await fetch("/static/oss/notices.json");
+    if (!response.ok) throw Error("Notice asset missing");
+    const documents = await response.json();
+    select.replaceChildren(...documents.map(({ name }, index) => new Option(name, index)));
+    select.onchange = () => { text.textContent = documents[Number(select.value)].text; };
+    select.onchange();
+  } catch {
+    text.textContent = "ライセンスを読み込めませんでした。上のリンクから確認してください。";
+  }
+};
 $("#close-figure").onclick = () => $("#lightbox").close();
 $("#lightbox").onclick = (e) => {
   if (e.target === $("#lightbox")) $("#lightbox").close();

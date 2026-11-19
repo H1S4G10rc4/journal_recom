@@ -5,6 +5,7 @@ import {
   existsSync,
   readFileSync,
   readdirSync,
+  rmSync,
 } from "node:fs";
 import path from "node:path";
 import { Resvg } from "@resvg/resvg-js";
@@ -25,8 +26,9 @@ if (!existsSync(path.join(destination, "tex-svg-full.js")))
   cpSync(path.join(root, "node_modules/mathjax/es5"), destination, {
     recursive: true,
   });
-// Keep the licenses of every runtime dependency in the source and installers.
+// Retain license text and native package attribution in the installers.
 const licenses = path.join(root, "resources/licenses");
+rmSync(licenses, { recursive: true, force: true });
 mkdirSync(licenses, { recursive: true });
 for (const name of ["noto-sans", "noto-sans-jp"]) {
   const source = path.join(root, "node_modules/@fontsource-variable", name);
@@ -39,20 +41,31 @@ for (const name of ["noto-sans", "noto-sans-jp"]) {
   }
   cpSync(path.join(source, "LICENSE"), path.join(licenses, name + "-OFL.txt"));
 }
-for (const [pkg, name] of [
-  ["electron", "Electron"],
-  ["mathjax", "MathJax"],
-  ["sharp", "sharp"],
-  ["@resvg/resvg-js", "resvg"],
-]) {
-  for (const file of ["LICENSE", "LICENSE.txt", "LICENSE.md", "COPYING"]) {
+const dependencyRoot = path.join(root, "node_modules");
+const native = ["@img", "@openai", "@resvg"].flatMap((scope) =>
+  readdirSync(path.join(dependencyRoot, scope)).map((name) => scope + "/" + name),
+);
+for (const pkg of ["electron", "mathjax", "sharp", "detect-libc", "semver", ...native]) {
+  const name = pkg.replace(/^@/, "").replaceAll("/", "-");
+  const files = readdirSync(path.join(dependencyRoot, pkg)).filter((file) =>
+    /^(?:licen[cs]e|copyright|copying|notice)(?:[._-]|$)/i.test(file) ||
+    (/^@img\/sharp-(?:libvips-|win32-)/.test(pkg) && ["README.md", "versions.json"].includes(file)),
+  );
+  for (const file of files) {
     const p = path.join(root, "node_modules", pkg, file);
-    if (existsSync(p)) {
-      cpSync(p, path.join(licenses, name + "-" + file));
-      break;
-    }
+    cpSync(p, path.join(licenses, name + "-" + file));
   }
 }
+const oss = path.join(root, "public/oss");
+mkdirSync(oss, { recursive: true });
+const documents = ["THIRD_PARTY_NOTICES.md", "LICENSE"].map((name) => ({
+  name, text: readFileSync(path.join(root, name), "utf8"),
+}));
+for (const folder of ["resources/third-party", "resources/licenses"]) {
+  for (const name of readdirSync(path.join(root, folder)).sort())
+    documents.push({ name, text: readFileSync(path.join(root, folder, name), "utf8") });
+}
+writeFileSync(path.join(oss, "notices.json"), JSON.stringify(documents));
 console.log(
   "Prepared local MathJax, native application icons, and runtime licenses.",
 );

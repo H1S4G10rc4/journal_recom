@@ -17,6 +17,19 @@
       </div>
     </div>
     <div id="toast" role="status" hidden></div>
+    <footer class="oss-footer">
+      <button id="open-oss" class="text-button" type="button">オープンソースライセンス</button>
+    </footer>
+    <dialog id="oss-dialog" aria-labelledby="oss-title">
+      <h2 id="oss-title">オープンソースライセンス</h2>
+      <p>PaperCueが同梱するソフトウェア・フォントの通知文とライセンスです。</p>
+      <p>libvips 8.18.7（John Cupittほか）の利用条件と著作権表示は、同梱のGNU LGPL・GPLと上流ソースを参照してください。</p>
+      <p><a href="https://github.com/H1S4G10rc4/journal_recom/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener noreferrer">同梱ソフトウェアとソースの一覧 ↗</a></p>
+      <label for="oss-select">文書</label>
+      <select id="oss-select"></select>
+      <pre id="oss-text" tabindex="0"></pre>
+      <form method="dialog"><button class="secondary">閉じる</button></form>
+    </dialog>
     <dialog id="lightbox">
       <button id="close-figure" aria-label="図を閉じる">×</button
       ><img alt="原図の拡大表示" />

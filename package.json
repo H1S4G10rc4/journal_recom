@@ -1,6 +1,6 @@
 {
   "name": "paper-desk-desktop",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Your research, two papers every morning. A local-first research reading companion.",
   "license": "MIT",
   "private": true,
@@ -79,7 +79,15 @@
       "RELEASE.md",
       "CHANGELOG.md",
       "LICENSE",
-      "THIRD_PARTY_NOTICES.md"
+      "THIRD_PARTY_NOTICES.md",
+      {
+        "from": "resources/third-party",
+        "to": "licenses"
+      },
+      {
+        "from": "resources/licenses",
+        "to": "licenses"
+      }
     ],
     "linux": {
       "executableName": "papercue",
