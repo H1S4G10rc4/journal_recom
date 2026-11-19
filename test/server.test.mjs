@@ -47,6 +47,32 @@ async function fixture(t) {
   };
   return { desk, call, cookies };
 }
+test("localhost entry redirects to the canonical origin without relaxing API host checks", async (t) => {
+  const { desk, call } = await fixture(t);
+  const port = new URL(desk.origin).port;
+  const host = "localhost:" + port;
+  // fetch controls Host itself, so use HTTP directly to reproduce a browser alias.
+  const request = (host, route = "/", method = "GET") => new Promise((resolve, reject) => {
+    const req = http.request(desk.origin + route, { method, headers: { Host: host } }, (res) => {
+      res.resume();
+      res.on("end", () => resolve({ status: res.statusCode, headers: res.headers }));
+    });
+    req.on("error", reject);
+    req.end();
+  });
+  const entry = await request(host, "/?preview=1");
+  assert.equal(entry.status, 302);
+  assert.equal(entry.headers.location, desk.origin + "/?preview=1");
+  assert.equal(entry.headers["set-cookie"], undefined);
+  assert.equal((await request(host, "/", "HEAD")).status, 302);
+  assert.equal((await call("/")).status, 200);
+  assert.equal((await request(host, "/api/state")).status, 403);
+  assert.equal((await request(host, "/api/claim", "POST")).status, 403);
+  for (const deniedHost of ["evil.example:" + port, "localhost.evil.example:" + port, "localhost:1"]) {
+    assert.equal((await request(deniedHost)).status, 403);
+  }
+});
+
 test("local capability and password protect all records; CSRF and DNS rebinding fail", async (t) => {
   const { desk, call } = await fixture(t);
   assert.equal((await call("/api/state")).status, 403);

@@ -117,6 +117,16 @@ export async function createDesk({
       };
     };
     try {
+      // Keep one cookie origin when a browser uses the localhost alias.
+      // Only redirect the entry page; API requests still require the exact host.
+      if (
+        req.headers.host === "localhost:" + new URL(origin).port &&
+        ["GET", "HEAD"].includes(req.method) &&
+        url.pathname === "/"
+      )
+        return reply(302, "", "text/plain; charset=utf-8", {
+          Location: origin + "/" + url.search,
+        });
       if (req.headers.host !== new URL(origin).host)
         return json({ error: "この接続先は許可されていません。" }, 403);
       if (
