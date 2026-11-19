@@ -1,6 +1,6 @@
 # 変更履歴
 
-## 0.1.4 — 2026-11-19
+## 0.1.5 — 2026-11-19
 
 PaperCueの初回公開版です。
 
@@ -16,4 +16,4 @@ PaperCueの初回公開版です。
 
 Windows・macOSの配布物は、発行元証明書による署名なしで配布します。
 
-[同梱ソフトウェアのライセンスと対応するソース](https://github.com/H1S4G10rc4/journal_recom/blob/v0.1.4/THIRD_PARTY_NOTICES.md)
+[同梱ソフトウェアのライセンスと対応するソース](https://github.com/H1S4G10rc4/journal_recom/blob/v0.1.5/THIRD_PARTY_NOTICES.md)

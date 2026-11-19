@@ -15,6 +15,7 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { createDesk } from "./server.mjs";
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
+const smokeMode = process.argv.includes("--smoke-test");
 if (process.env.PAPER_DESK_STATE)
   app.setPath("userData", path.resolve(process.env.PAPER_DESK_STATE));
 let win,
@@ -98,7 +99,7 @@ if (gotLock) {
   app.on("second-instance", show);
   app.whenReady().then(async () => {
     try {
-      if (process.argv.includes("--smoke-test")) {
+      if (smokeMode) {
         const { smokeTest } = await import("./smoke.mjs");
         await smokeTest();
         app.exit(0);
@@ -145,7 +146,7 @@ if (gotLock) {
       if (!process.argv.includes("--hidden") || !desk.vault.initialized) show();
       else if (!desk.vault.unlocked) show();
     } catch (e) {
-      if (process.argv.includes("--smoke-test")) {
+      if (smokeMode) {
         console.error("SMOKE FAIL", e);
         app.exit(1);
         return;
@@ -156,7 +157,7 @@ if (gotLock) {
   });
 }
 app.on("window-all-closed", () => {
-  if (!tray) app.quit();
+  if (!smokeMode && !tray) app.quit();
 });
 app.on("activate", () => {
   if (desk) show();

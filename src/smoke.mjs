@@ -81,10 +81,12 @@ export async function smokeTest() {
       })
     `);
     assert(notices, "The app must display the bundled license texts");
-    console.log("SMOKE PASS: setup screen, fonts, licenses, MathJax, Codex, image conversion and nihongo");
   } finally {
-    // The smoke window must not trigger the normal last-window quit handler.
+    // Stop the renderer's polling before waiting for the HTTP server to close.
+    if (window && !window.isDestroyed()) window.destroy();
+    desk?.server.closeAllConnections();
     await desk?.close();
     rmSync(state, { recursive: true, force: true, maxRetries: 5 });
   }
+  console.log("SMOKE PASS: setup screen, fonts, licenses, MathJax, Codex, image conversion and nihongo");
 }
