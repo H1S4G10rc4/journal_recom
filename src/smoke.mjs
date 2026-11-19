@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { once } from "node:events";
+import { mkdirSync, mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +11,9 @@ import { createDesk } from "./server.mjs";
 import { nihongoGuidance } from "./nihongo.mjs";
 
 export async function smokeTest() {
-  const state = mkdtempSync(path.join(os.tmpdir(), "paper-desk-smoke-"));
+  const runnerDirectory = process.env.PAPER_DESK_STATE;
+  if (runnerDirectory) mkdirSync(runnerDirectory, { recursive: true });
+  const state = mkdtempSync(path.join(runnerDirectory || os.tmpdir(), "paper-desk-smoke-"));
   let desk, window;
   try {
     desk = await createDesk({
@@ -84,9 +87,13 @@ export async function smokeTest() {
   } finally {
     // Stop the renderer's polling before waiting for the HTTP server to close.
     if (window && !window.isDestroyed()) window.destroy();
+    const codexChild = desk?.codex.child;
+    const codexClosed = codexChild && once(codexChild, "close");
     desk?.server.closeAllConnections();
     await desk?.close();
-    rmSync(state, { recursive: true, force: true, maxRetries: 5 });
+    if (codexClosed) await codexClosed;
+    // The runner removes its own tree after Electron has released all handles.
+    if (!runnerDirectory) rmSync(state, { recursive: true, force: true, maxRetries: 5 });
   }
   console.log("SMOKE PASS: setup screen, fonts, licenses, MathJax, Codex, image conversion and nihongo");
 }

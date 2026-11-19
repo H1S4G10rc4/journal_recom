@@ -48,11 +48,11 @@ Linux上のブラウザ確認版では、ChatGPT接続から2テーマの推薦�
 
 ## Releaseを公開する
 
-公開するコミットの確認を終えてから、バージョンタグを作成します。次は0.1.5の例です。
+公開するコミットの確認を終えてから、バージョンタグを作成します。次は0.1.6の例です。
 
 ```bash
-git tag -a v0.1.5 -m "PaperCue 0.1.5"
-git push origin v0.1.5
+git tag -a v0.1.6 -m "PaperCue 0.1.6"
+git push origin v0.1.6
 ```
 
 タグと `package.json` のバージョンが一致し、3環境のビルドと起動テストがすべて成功すると、GitHub ActionsがReleaseを公開します。配布ファイルを集めた後に各環境のチェックサムを検証し、最終的な `SHA256SUMS.txt` とともに添付します。
