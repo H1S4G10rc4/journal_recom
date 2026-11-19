@@ -99,35 +99,9 @@ if (gotLock) {
   app.whenReady().then(async () => {
     try {
       if (process.argv.includes("--smoke-test")) {
-        const { default: sharp } = await import("sharp");
-        const { Resvg } = await import("@resvg/resvg-js");
-        const { Codex } = await import("./codex.mjs");
-        const { nihongoGuidance } = await import("./nihongo.mjs");
-        const languageGuidance = nihongoGuidance();
-        const png = new Resvg(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64" fill="green"/></svg>',
-        )
-          .render()
-          .asPng();
-        const image = await sharp(Buffer.from(png)).webp().toBuffer();
-        const c = new Codex(app.getPath("userData"));
-        try {
-          const account = await c.account();
-          const login = await c.login();
-          console.log(
-            "SMOKE PASS",
-            JSON.stringify({
-              imageBytes: image.length,
-              nihongoCharacters: languageGuidance.length,
-              account: account.signedIn,
-              authOrigin: new URL(login.url).origin,
-            }),
-          );
-          await c.cancel();
-        } finally {
-          c.stop();
-        }
-        app.quit();
+        const { smokeTest } = await import("./smoke.mjs");
+        await smokeTest();
+        app.exit(0);
         return;
       }
       session.defaultSession.setPermissionRequestHandler(
@@ -171,6 +145,11 @@ if (gotLock) {
       if (!process.argv.includes("--hidden") || !desk.vault.initialized) show();
       else if (!desk.vault.unlocked) show();
     } catch (e) {
+      if (process.argv.includes("--smoke-test")) {
+        console.error("SMOKE FAIL", e);
+        app.exit(1);
+        return;
+      }
       dialog.showErrorBox("Paper Deskを起動できませんでした", e.message);
       app.quit();
     }

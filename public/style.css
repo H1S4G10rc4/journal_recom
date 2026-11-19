@@ -1,4 +1,8 @@
+@import url("./fonts/noto-sans/wght.css");
+@import url("./fonts/noto-sans-jp/wght.css");
+
 :root {
+  --ui-font: "Noto Sans Variable", "Noto Sans JP Variable", "Noto Sans", "Noto Sans JP", sans-serif;
   --ink: #243e34;
   --muted: #7b887c;
   --green: #2e5c47;
@@ -12,12 +16,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font:
-    14px -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans",
-    system-ui,
-    sans-serif;
+  font: 14px var(--ui-font);
 }
 button,
 input,
@@ -51,9 +50,7 @@ a:focus-visible {
   outline-offset: 3px;
 }
 .wordmark {
-  font:
-    32px Georgia,
-    serif;
+  font: 32px var(--ui-font);
   letter-spacing: -1px;
   white-space: nowrap;
 }
@@ -178,7 +175,7 @@ input[type="checkbox"] {
   padding-top: 15px;
 }
 .setup-layout aside h1 {
-  font-family: serif;
+  font-family: var(--ui-font);
   font-size: 36px;
   line-height: 1.9;
   letter-spacing: 1px;
@@ -214,9 +211,7 @@ input[type="checkbox"] {
 }
 .steps li::before {
   content: counter(step, decimal-leading-zero);
-  font:
-    12px Georgia,
-    serif;
+  font: 12px var(--ui-font);
   width: 24px;
 }
 .steps li.current {
@@ -231,7 +226,7 @@ input[type="checkbox"] {
   min-height: 445px;
 }
 .setup-card h2 {
-  font-family: serif;
+  font-family: var(--ui-font);
   font-size: 26px;
   font-weight: 500;
   line-height: 1.7;
@@ -391,7 +386,7 @@ input[type="checkbox"] {
   margin-top: 42px;
 }
 .unlock h1 {
-  font: 23px/1.8 serif;
+  font: 23px/1.8 var(--ui-font);
   margin-top: 15px;
   font-weight: 500;
 }
@@ -432,9 +427,7 @@ input[type="checkbox"] {
   margin: 48px 0 25px;
 }
 .read-stats strong {
-  font:
-    44px Georgia,
-    serif;
+  font: 44px var(--ui-font);
 }
 .read-stats span {
   font-size: 11px;
@@ -533,7 +526,7 @@ input[type="checkbox"] {
   padding: 48px 0 35px;
 }
 .introduction h1 {
-  font-family: serif;
+  font-family: var(--ui-font);
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -546,15 +539,13 @@ input[type="checkbox"] {
   margin: 0;
 }
 .two {
-  font:
-    70px/1 Georgia,
-    serif;
+  font: 70px/1 var(--ui-font);
   color: #c2cfb5;
   text-align: center;
 }
 .two small {
   display: block;
-  font: 8px system-ui;
+  font: 8px var(--ui-font);
   letter-spacing: 1.5px;
   margin-top: 12px;
   color: #a0b08e;
@@ -662,9 +653,7 @@ input[type="checkbox"] {
   color: #7394a0;
 }
 .paper h3 {
-  font:
-    24px/1.4 Georgia,
-    serif;
+  font: 24px/1.4 var(--ui-font);
   margin: 0 0 10px;
   overflow-wrap: anywhere;
 }
@@ -807,7 +796,7 @@ figcaption small {
   color: #a9b89b;
 }
 .empty h3 {
-  font: 20px serif;
+  font: 20px var(--ui-font);
   font-weight: 500;
 }
 .empty p {
@@ -842,7 +831,7 @@ figcaption small {
   cursor: pointer;
 }
 .run-details pre {
-  font: 11px/1.9 system-ui;
+  font: 11px/1.9 var(--ui-font);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   background: #edf2e7;
@@ -1030,9 +1019,7 @@ mjx-container[display="true"] {
     margin: 12px 0 14px;
   }
   .read-stats strong {
-    font:
-      18px Georgia,
-      serif;
+    font: 18px var(--ui-font);
   }
   .read-stats span {
     font-size: 10px;

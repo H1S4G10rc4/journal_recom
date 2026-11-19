@@ -81,6 +81,8 @@ test("scheduling respects timezone, disabled updates, missing themes, and comple
   assert(isDue(d, new Date("2026-11-19T09:00:00Z")));
   d.papers.push({ date: "2026-11-19", theme: "B" });
   assert(!isDue(d, new Date("2026-11-19T09:00:00Z")));
+  assert(!isDue(d, new Date("2026-11-19T20:59:00Z")));
+  assert(isDue(d, new Date("2026-11-19T21:00:00Z")));
   d.schedule.enabled = false;
   assert(!isDue(d, new Date("2026-11-20T09:00:00Z")));
 });

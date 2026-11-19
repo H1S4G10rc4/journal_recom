@@ -4,6 +4,7 @@ import {
   writeFileSync,
   existsSync,
   readFileSync,
+  readdirSync,
 } from "node:fs";
 import path from "node:path";
 import { Resvg } from "@resvg/resvg-js";
@@ -27,6 +28,17 @@ if (!existsSync(path.join(destination, "tex-svg-full.js")))
 // Keep the licenses of every runtime dependency in the source and installers.
 const licenses = path.join(root, "resources/licenses");
 mkdirSync(licenses, { recursive: true });
+for (const name of ["noto-sans", "noto-sans-jp"]) {
+  const source = path.join(root, "node_modules/@fontsource-variable", name);
+  const output = path.join(root, "public/fonts", name);
+  mkdirSync(path.join(output, "files"), { recursive: true });
+  cpSync(path.join(source, "wght.css"), path.join(output, "wght.css"));
+  for (const file of readdirSync(path.join(source, "files"))) {
+    if (file.endsWith("-wght-normal.woff2"))
+      cpSync(path.join(source, "files", file), path.join(output, "files", file));
+  }
+  cpSync(path.join(source, "LICENSE"), path.join(licenses, name + "-OFL.txt"));
+}
 for (const [pkg, name] of [
   ["electron", "Electron"],
   ["mathjax", "MathJax"],

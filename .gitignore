@@ -15,6 +15,7 @@ release/
 # Generated assets and local runtime files
 resources/icon.png
 resources/tray.png
+public/fonts/
 __pycache__/
 *.pyc
 *.sqlite3*

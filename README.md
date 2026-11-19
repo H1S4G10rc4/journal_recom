@@ -6,17 +6,17 @@ ChatGPTアカウントで接続し、各利用者のPCで動作します。ア�
 
 ## ダウンロードと動作環境
 
-[Releases](https://github.com/H1S4G10rc4/journal_recom/releases) に公開された配布ファイルを使用してください。Releaseがまだない場合は、[Actions](https://github.com/H1S4G10rc4/journal_recom/actions/workflows/release.yml) の成功した実行から「Artifacts」をダウンロードするか、[ソースから起動](#ソースから起動する)できます。
+[GitHub Releases](https://github.com/H1S4G10rc4/journal_recom/releases/latest) の「Assets」から、お使いのOSに合うファイルを選んでください。
 
-| 環境 | 配布形式 | 動作確認の範囲 |
-| --- | --- | --- |
-| Linux x64 | `tar.gz`、AppImage | Fedoraで展開版の起動を確認。共通の処理を使うブラウザ確認版で認証・実生成・原図表示を確認 |
-| Windows x64 | セットアップ版、ポータブル版 | GitHub Actionsでビルド。実機での操作確認は未実施 |
-| macOS Apple Silicon | `dmg`、`zip` | GitHub Actionsでビルド。実機での操作確認と署名・公証は未実施 |
+| お使いのPC | 選ぶファイル |
+| --- | --- |
+| Linux x64 | `linux-x64.tar.gz` または AppImage |
+| Windows x64 | `setup.exe`（インストール）または `portable.exe`（そのまま起動） |
+| macOS Apple Silicon（Mシリーズ） | `mac-arm64.dmg` または `mac-arm64.zip` |
 
-配布アプリには実行環境を同梱しているため、Node.jsやPythonを別途インストールする必要はありません。論文の調査にはインターネット接続と、Codexを利用できるChatGPTアカウントが必要です。アカウントの利用条件・利用上限はOpenAI側の条件に従います。詳しくは[公式の認証資料](https://learn.chatgpt.com/docs/auth?surface=cli)を参照してください。
+論文の調査にはインターネット接続と、Codexを利用できるChatGPTアカウントが必要です。アプリの実行に必要なソフトウェアやNoto Sansのフォントは同梱しています。
 
-現在の配布物は未署名です。Windows/macOSではOSによる警告や起動の制限が生じる場合があります。署名済みの正式配布版としては扱っていません。
+Windows・macOSの配布物には発行元証明書による署名がないため、OSから警告が表示されたり、起動を制限されたりする場合があります。
 
 ### Linux
 
@@ -24,7 +24,7 @@ ChatGPTアカウントで接続し、各利用者のPCで動作します。ア�
 
 ### Windows・macOS
 
-Windowsは `setup.exe` でインストールするか、`portable.exe` を使用します。macOSは `dmg` を開き、アプリをApplicationsフォルダーへ移動します。
+Windowsはファイル名の末尾が `setup.exe` のものを実行してインストールするか、`portable.exe` を直接起動します。macOSは `dmg` を開くか `zip` を展開し、Paper Deskを「アプリケーション」フォルダーへ移動します。
 
 ## 初回設定
 
@@ -55,8 +55,6 @@ ChatGPTの接続を後回しにし、先に研究の設定を保存すること�
 
 PCが休止中の場合は更新できません。復帰後にその日の未生成分を補います。自動更新が失敗した場合は15分間隔で最大3回試し、その後は4時間待ちます。画面の「今日の推薦を更新」から手動で再試行できます。
 
-翌日の自動更新を含む長期間の連続動作と、Windows/macOSの自動起動は実機での確認が残っています。
-
 ## 保存する情報と外部への送信
 
 研究内容、推薦履歴、既読、メモ、取得した図は利用者のPCに保存します。研究内容と読書記録、図は、アプリ用のパスワードから導出した鍵で暗号化します。パスワードを紛失すると、保存済みデータを復元できません。
@@ -65,65 +63,13 @@ PCが休止中の場合は更新できません。復帰後にその日の未生
 
 ChatGPTのログイン情報は、同梱した公式Codex CLIがアプリ専用の保存先で管理します。OSの認証情報ストアが利用できる場合はそちらを使用し、利用できない場合は専用領域の認証ファイルを使用します。**アプリ用パスワードは、この認証ファイルを暗号化するものではありません。**
 
-保存先は、デスクトップ版ではOS標準のアプリデータ領域、ブラウザ確認版では `~/.local/share/paper-desk-desktop` です。`PAPER_DESK_STATE` で別の保存先を指定できます。画面の「データを書き出す」で出力するJSONは暗号化されていないため、共有先に注意してください。
-
-配布ファイルとGitリポジトリには、利用者のパスワード、ログイン情報、研究内容、推薦履歴、取得済みの論文・図を含めません。
-
-## ソースから起動する
-
-開発にはNode.js 24とnpmを使用します。
-
-```bash
-git clone https://github.com/H1S4G10rc4/journal_recom.git
-cd journal_recom
-npm ci
-npm test
-npm run prepare:resources
-npm start
-```
-
-### ブラウザで確認する
-
-```bash
-npm run prepare:resources
-npm run preview
-```
-
-表示されたURLをブラウザで直接開きます。特別な起動リンクは不要です。初回にパスワードを設定し、以後はそのパスワードでロックを解除します。
-
-ポートと保存先を指定する場合は、次のように起動します。これはbashの例です。
-
-```bash
-PORT=8766 PAPER_DESK_STATE="$PWD/.paper-desk-state" npm run preview
-```
-
-ブラウザ確認版にはトレイ常駐やPC起動時の自動起動はありません。起動したプロセスが動作している間に更新します。待ち受けは `127.0.0.1` のみです。`localhost` から開くと同じPCの `127.0.0.1` へ移動します。外部公開用のWebサーバーとしては使用しないでください。
-
-### 配布ファイルを作成する
-
-```bash
-# 現在のOS向けのアプリフォルダーを作成
-npm run pack
-
-# 現在のOS向けの配布ファイルを作成
-npm run dist -- --publish never
-
-# 配布ファイルのSHA-256一覧を作成
-npm run checksums
-
-# ソースのZIPを作成
-npm run source
-```
-
-ビルド結果は `release/` に保存します。ソースZIPには、認証情報、実行時データ、依存パッケージ、生成済みの配布ファイルを含めません。
-
-`main` へのpushとPull Requestでは、GitHub ActionsがLinux・Windows・macOSでテストとビルドを実行します。バージョンタグからは、配布ファイルとチェックサムを添付したReleaseの下書きを作成します。公開までの手順は [RELEASE.md](RELEASE.md) を参照してください。
+画面の「データを書き出す」で、研究設定と読書記録をJSONに保存できます。書き出したファイルは暗号化されないため、共有先に注意してください。
 
 ## 問題が起きたとき
 
 「選定・更新の記録」を開くと、選定理由、本文の確認範囲、失敗した処理を確認できます。ChatGPTの利用上限に達した場合は時間をおいて再実行してください。認証エラーの場合は設定画面からChatGPTに接続し直してください。
 
-不具合は [Issues](https://github.com/H1S4G10rc4/journal_recom/issues) で報告できます。使用OS、アプリのバージョン、再現手順、エラー文を記載し、パスワード、認証ファイル、非公開の研究内容は添付しないでください。
+不具合は [GitHubの不具合報告ページ](https://github.com/H1S4G10rc4/journal_recom/issues) で報告できます。使用OS、アプリのバージョン、再現手順、エラー文を記載し、パスワード、認証ファイル、非公開の研究内容は添付しないでください。
 
 ## ライセンス・参考資料
 

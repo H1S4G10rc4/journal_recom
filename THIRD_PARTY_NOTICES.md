@@ -7,6 +7,9 @@ Paper Desk is an independent, local, open-source application. It is not an OpenA
   `resources/third-party/Codex-LICENSE` and `resources/third-party/Codex-NOTICE`.
 - Electron: MIT, with Chromium/Node.js and their third-party licenses. https://github.com/electron/electron
 - MathJax: Apache-2.0. https://github.com/mathjax/MathJax
+- Noto Sans and Noto Sans JP: SIL Open Font License 1.1, distributed via
+  [Fontsource](https://github.com/fontsource/fontsource). The fonts and their
+  license texts are included with the application.
 - sharp: Apache-2.0; packaged libvips is LGPL-3.0-or-later and retains its own notices. https://github.com/lovell/sharp
   The LGPL-3.0 and GPL-3.0 texts are retained in `resources/third-party/`.
   Corresponding libvips build sources and scripts: https://github.com/lovell/sharp-libvips
