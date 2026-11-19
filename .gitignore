@@ -18,6 +18,12 @@ resources/tray.png
 __pycache__/
 *.pyc
 *.sqlite3*
+*.sqlite*
+.paper-desk-state/
+codex/
+links.json
 *.zip
 *.AppImage
 *.tar.gz
+*.exe
+*.dmg

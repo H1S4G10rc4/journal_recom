@@ -4,6 +4,17 @@
   "description": "Your research, two papers every morning. A local-first research reading companion.",
   "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H1S4G10rc4/journal_recom.git"
+  },
+  "homepage": "https://github.com/H1S4G10rc4/journal_recom#readme",
+  "bugs": {
+    "url": "https://github.com/H1S4G10rc4/journal_recom/issues"
+  },
+  "engines": {
+    "node": ">=24"
+  },
   "type": "module",
   "main": "src/main.mjs",
   "author": {
@@ -16,7 +27,8 @@
     "prepare:resources": "node scripts/prepare-resources.mjs",
     "pack": "npm run prepare:resources && electron-builder --dir",
     "dist": "npm run prepare:resources && electron-builder",
-    "source": "node scripts/source-archive.mjs"
+    "source": "node scripts/source-archive.mjs",
+    "checksums": "node scripts/release-checksums.mjs"
   },
   "dependencies": {
     "@openai/codex": "0.170.0",
@@ -59,6 +71,13 @@
         "to": "mathjax"
       }
     ],
+    "extraFiles": [
+      "README.md",
+      "RELEASE.md",
+      "CHANGELOG.md",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md"
+    ],
     "linux": {
       "target": [
         "AppImage",
@@ -75,9 +94,13 @@
       "icon": "resources/icon.png"
     },
     "nsis": {
+      "artifactName": "Paper-Desk-${version}-windows-${arch}-setup.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "Paper-Desk-${version}-windows-${arch}-portable.${ext}"
     },
     "mac": {
       "target": [

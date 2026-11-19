@@ -1,10 +1,11 @@
 import path from "node:path";
-import { createWriteStream, readdirSync, statSync, existsSync } from "node:fs";
+import { createWriteStream, readdirSync, statSync, mkdirSync, readFileSync } from "node:fs";
 import { ZipFile } from "yazl";
 import { finished } from "node:stream/promises";
 const root = path.resolve(import.meta.dirname, "..");
+const { version } = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
 const output = path.resolve(
-  process.argv[2] || path.join(root, "..", "Paper-Desk-0.1.0-source.zip"),
+  process.argv[2] || path.join(root, "release", `Paper-Desk-${version}-source.zip`),
 );
 const files = [
   "package.json",
@@ -13,6 +14,7 @@ const files = [
   "THIRD_PARTY_NOTICES.md",
   "README.md",
   "RELEASE.md",
+  "CHANGELOG.md",
   ".gitignore",
   ".gitattributes",
   ".github",
@@ -23,7 +25,9 @@ const files = [
   "resources/research-schema.json",
   "resources/icon.svg",
   "resources/nihongo",
+  "resources/third-party",
 ];
+mkdirSync(path.dirname(output), { recursive: true });
 const zip = new ZipFile();
 const stream = createWriteStream(output);
 zip.outputStream.pipe(stream);
