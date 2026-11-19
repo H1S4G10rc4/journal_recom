@@ -22,6 +22,8 @@ Windows・macOSの配布物には発行元証明書による署名がないた�
 
 `tar.gz` を展開し、フォルダー内の `papercue` を起動します。フォルダー内のファイルは移動せず、まとめて保管してください。AppImageの実行にはFUSE 2が必要です。FUSE 2を利用できない環境では `tar.gz` 版を使用してください。
 
+Ubuntuなどで起動時に `SUID sandbox helper` のエラーが出る場合は、管理者にアプリ一式を管理者の所有するディレクトリへ配置し、同梱の `chrome-sandbox` を `root:root` 所有、モード `4755` に設定してもらってください。この設定は展開した `tar.gz` 版で行えます。
+
 ### Windows・macOS
 
 Windowsはファイル名の末尾が `setup.exe` のものを実行してインストールするか、`portable.exe` を直接起動します。macOSは `dmg` を開くか `zip` を展開し、PaperCueを「アプリケーション」フォルダーへ移動します。

@@ -164,7 +164,7 @@ export class Codex {
         clientInfo: {
           name: "paper_desk",
           title: "PaperCue",
-          version: "0.1.3",
+          version: "0.1.4",
         },
         capabilities: { experimentalApi: false },
       },

@@ -47,9 +47,13 @@ jobs:
       - run: npm run dist -- ${{ matrix.target }} --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
+          ELECTRON_BUILDER_COMPRESSION_LEVEL: "3"
       - name: Start packaged app on Linux
         if: runner.os == 'Linux'
-        run: xvfb-run -a node scripts/smoke-release.mjs
+        run: |
+          sudo chown root:root release/linux-unpacked/chrome-sandbox
+          sudo chmod 4755 release/linux-unpacked/chrome-sandbox
+          xvfb-run -a node scripts/smoke-release.mjs
       - name: Start packaged app on Windows or macOS
         if: runner.os != 'Linux'
         run: node scripts/smoke-release.mjs
